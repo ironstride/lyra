@@ -141,7 +141,8 @@ export type StoreContext<T> = {
 	changedCallbacks: { (key: string, newData: T, oldData: T?) -> () },
 	logger: Log.Logger,
 	onLockLost: ((key: string) -> ())?,
-	useDSSLocking: boolean,
+	useDSSLocking: boolean?,
+    useMock: boolean?,
 
 	recordStore: DataStore,
 	shardStore: DataStore,

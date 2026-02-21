@@ -230,9 +230,9 @@ local function createStore<T>(config: StoreConfig<T>): Store<T>
 	local dataStoreService = config.dataStoreService
 	if dataStoreService == nil then
 		if config.useMock then
-			assert(RunService:IsStudio(), "useMock can only be true in Studio")
+            assert(RunService:IsStudio(), "useMock can only be true in Studio")
 			logger:log("info", `using mock DataStoreService`)
-			dataStoreService = (MockDataStoreService.new() :: any) :: DataStoreService
+			dataStoreService = MockDataStoreService.new()
 		else
 			logger:log("trace", `using real DataStoreService`)
 			dataStoreService = DataStoreService
@@ -244,9 +244,9 @@ local function createStore<T>(config: StoreConfig<T>): Store<T>
 	local memoryStoreService = config.memoryStoreService
 	if memoryStoreService == nil then
 		if config.useMock then
-			assert(RunService:IsStudio(), "useMock can only be true in Studio")
+            assert(RunService:IsStudio(), "useMock can only be true in Studio")
 			logger:log("info", `using mock MemoryStoreService`)
-			memoryStoreService = (MockMemoryStoreService.new() :: any) :: MemoryStoreService
+			memoryStoreService = MockMemoryStoreService.new()
 		else
 			logger:log("trace", `using real MemoryStoreService`)
 			memoryStoreService = MemoryStoreService
@@ -272,6 +272,7 @@ local function createStore<T>(config: StoreConfig<T>): Store<T>
 		logger = logger,
 		onLockLost = config.onLockLost,
 		useDSSLocking = config.useDSSLocking == true,
+        useMock = config.useMock == true,
 
 		-- Get specific DataStore/MemoryStore instances using derived names/scopes.
 		recordStore = dataStoreService:GetDataStore(`{Constants.RECORD_SCOPE}/{config.name}`),

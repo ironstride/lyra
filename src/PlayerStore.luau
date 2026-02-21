@@ -115,6 +115,7 @@ export type PlayerStoreConfig<T> = {
 	name: string,
 	template: T,
 	useDSSLocking: boolean?,
+    useMock: boolean?,
 	schema: (value: any) -> (boolean, string?),
 	migrationSteps: { Types.MigrationStep }?,
 	importLegacyData: ((key: string) -> any?)?,
@@ -173,6 +174,7 @@ local function createPlayerStore<T>(config: PlayerStoreConfig<T>): PlayerStore<T
 		migrationSteps = config.migrationSteps,
 		importLegacyData = config.importLegacyData,
 		changedCallbacks = config.changedCallbacks,
+        useMock = config.useMock,
 		logCallback = config.logCallback,
 		onLockLost = function(key: string)
 			self:_kickPlayer(key, "DataStore lock lost, please rejoin the game.")
